@@ -9,6 +9,7 @@ def main(page: ft.Page):
     url_input = ft.TextField(border_color="white",width=500)
     boton_descargar = ft.ElevatedButton(text="Descargar",bgcolor="green",color="white")
     pb = ft.ProgressBar(color="green",width=400,visible=False)
+    
 
 
     def descargar(e):
@@ -21,8 +22,7 @@ def main(page: ft.Page):
                     index = d["fragment_index"]
                     total = d["fragment_count"]
                     percent = (index/total)*100
-                    percent = percent*0.01
-                    print(percent)
+                    percent = percent*0.01                    
                     pb.value = percent
                     page.update()   
 
@@ -42,6 +42,7 @@ def main(page: ft.Page):
                             actions=[ft.ElevatedButton("Aceptar",on_click=lambda e:page.close(dlg))]
                             )
             page.open(dlg)
+            pb.value = None
             pb.visible=False
             page.update()
         except yt_dlp.utils.DownloadError as e:
@@ -96,5 +97,6 @@ def main(page: ft.Page):
     stack.controls.append(cpb)
     page.window_maximized = True
     page.add(stack)
-
-ft.app(main)
+    
+if __name__ == "__main__":
+    ft.app(main)
